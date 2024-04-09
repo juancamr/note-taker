@@ -7,15 +7,15 @@ const notes = await getNotes()
 ---
 
 <Layout title="Note taker">
-        <div class="w-full flex justify-end">
-            <a class="px-4 py-2 product-font bg-blue-600 rounded-xl text-white mb-12"
-                href="/add"
-            >AGREGAR <i class="ml-4 fa-solid fa-plus"></i></a>
-        </div>
-        <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
+    <div class="w-full flex justify-end">
+        <a class="px-4 py-2 product-font bg-blue-600 rounded-xl text-white mb-6"
+            href="/add"
+        >AGREGAR <i class="ml-4 fa-solid fa-plus"></i></a>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
         {notes.map((note: any) =>
-            <Note title={note.title} content={note.content} />
+            <Note client:load title={note.title} content={note.content} />
         )}
-        </div>
+    </div>
 </Layout>
 
