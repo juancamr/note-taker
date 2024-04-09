@@ -1,0 +1,8 @@
+---
+const { title, content } = Astro.props
+---
+
+<div class="product-font bg-white p-4 text-black rounded-xl">
+    <h4 class="font-bold text-xl">{title}</h1>
+    <p class="text-sm text-gray-500">{content.slice(0, 10)}...</p>
+</div>
