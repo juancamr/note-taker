@@ -14,7 +14,7 @@ const notes = await getNotes()
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
         {notes.map((note: any) =>
-            <Note client:load title={note.title} content={note.content} />
+            <Note title={note.title} content={note.content} />
         )}
     </div>
 </Layout>
