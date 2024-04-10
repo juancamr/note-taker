@@ -1,21 +1,30 @@
 ---
-import { getNotes } from "../data/note"
-import Layout from "../layouts/Layout.astro"
-import Note from "../components/note.astro"
-
-const notes = await getNotes()
+import Layout from "../layouts/Layout.astro";
+import Notes from "../components/notes.astro";
+export const prerender = true;
 ---
 
+<script>
+    document.addEventListener("keydown", function (event) {
+        if (event.ctrlKey && event.key === "a") {
+            const content = prompt("Enter the content");
+            const title = prompt("Enter the title");
+            if (title == null || content == null) return;
+            fetch("/api/create-note/", {
+                method: "post",
+                body: JSON.stringify({ title, content }),
+            })
+                .then((res) => res.json())
+                .then(() => {
+                    alert("Note added");
+                    location.reload();
+                });
+        }
+    });
+</script>
+
 <Layout title="Note taker">
-    <div class="w-full flex justify-end">
-        <a class="px-4 py-2 product-font bg-blue-600 rounded-xl text-white mb-6"
-            href="/add"
-        >AGREGAR <i class="ml-4 fa-solid fa-plus"></i></a>
-    </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
-        {notes.map((note: any) =>
-            <Note title={note.title} content={note.content} />
-        )}
+    <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6 mt-10">
+        <Notes />
     </div>
 </Layout>
-
