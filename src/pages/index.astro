@@ -5,10 +5,11 @@ import Notes from "../components/notes.astro";
 
 <script>
     document.addEventListener("keydown", function (event) {
-        if (event.ctrlKey && event.key === "a") {
+        if (event.key === "a") {
             const content = prompt("Enter the content");
+            if (content == null) return;
             const title = prompt("Enter the title");
-            if (title == null || content == null) return;
+            if (title == null) return;
             fetch("/api/create-note/", {
                 method: "post",
                 body: JSON.stringify({ title, content }),

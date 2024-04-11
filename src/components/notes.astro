@@ -7,7 +7,7 @@ const notes = await getNotes();
     async function copy (event) {
         const content = event.target.getAttribute("data-content")
         await navigator.clipboard.writeText(content);
-        alert("Copied to clipboard!");
+        Toastify({text: "Copied!", gravity: "bottom", position: "right"}).showToast()
     };
 </script>
 
