@@ -1,30 +1,52 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Notes from "../components/notes.astro";
+import { getNotes } from "../data/note";
+const notes = await getNotes();
+
+console.log(notes)
 ---
 
 <script>
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "a") {
-            const content = prompt("Enter the content");
-            if (content == null) return;
-            const title = prompt("Enter the title");
-            if (title == null) return;
-            fetch("/api/create-note/", {
-                method: "post",
-                body: JSON.stringify({ title, content }),
-            })
-                .then((res) => res.json())
-                .then(() => {
-                    alert("Note added");
-                    location.reload();
-                });
-        }
-    });
+document.addEventListener("keydown", function (event) {
+    if (event.key === "a") {
+        const content = prompt("Enter the content");
+        if (content == null) return;
+        const title = prompt("Enter the title");
+        if (title == null) return;
+        fetch("/api/create-note/", {
+            method: "post",
+            body: JSON.stringify({ title, content }),
+        })
+            .then((res) => res.json())
+            .then(() => {
+                location.reload();
+            });
+    }
+});
+</script>
+
+<script is:inline>
+async function copy (event) {
+    const content = event.target.getAttribute("data-content")
+    await navigator.clipboard.writeText(content);
+};
 </script>
 
 <Layout title="Note taker">
     <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6 mt-10">
-        <Notes />
+        {
+        notes.map(({ title, content }, index) => (
+            <div
+                id={`${index}`}
+                class="product-font bg-white p-4 text-black rounded-xl transition duration-300 cursor-pointer border border-gray-100 shadow-lg"
+            >
+                <div class="flex mb-2 items-start">
+                    <h4 class="font-bold text-xl mr-auto">{title}</h4>
+                    <button onclick="copy(event)" data-content={content}><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <p class="text-sm text-gray-500">{content.slice(0, 10)}...</p>
+            </div>
+        ))
+        }
     </div>
 </Layout>

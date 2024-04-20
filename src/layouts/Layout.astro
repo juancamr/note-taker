@@ -16,22 +16,27 @@ const { title } = Astro.props;
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
+        <meta charset="UTF-8" />
         <style is:global>
             .product-font {
                 font-family: "Product Sans", sans-serif;
             }
+            .grape-nuts {
+                font-family: "Grape Nuts", cursive;
+            }
         </style>
     </head>
-    <body class="bg-black text-white">
+    <body class="text-white">
         <main class="py-12 mx-20">
             <div class="w-full mb-4">
-                <a href="/" class="text-center text-5xl font-bold product-font"
-                    >Note taker</a
+                <a href="/" class="text-center text-black text-5xl font-bold product-font grape-nuts"
+                    >Notes</a
                 >
             </div>
             <slot />
         </main>
-        <script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </body>
 </html>
