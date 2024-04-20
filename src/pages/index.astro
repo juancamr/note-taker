@@ -28,7 +28,15 @@ document.addEventListener("keydown", function (event) {
 <script is:inline>
 async function copy (event) {
     const content = event.target.getAttribute("data-content")
+    const title = event.target.getAttribute("data-title")
     await navigator.clipboard.writeText(content);
+    Toastify({
+        text: `"${title}" copied!`,
+        duration: 3000,
+        gravity: "bottom", 
+        position: "left", 
+        style: { background: "black", borderRadius: "1rem"},
+    }).showToast();
 };
 </script>
 
@@ -38,11 +46,11 @@ async function copy (event) {
         notes.map(({ title, content }, index) => (
             <div
                 id={`${index}`}
-                class="product-font bg-white p-4 text-black rounded-xl transition duration-300 cursor-pointer border border-gray-100 shadow-lg"
+                class="product-font bg-white p-4 text-black rounded-xl transition duration-300 border border-gray-100 shadow-lg"
             >
                 <div class="flex mb-2 items-start">
                     <h4 class="font-bold text-xl mr-auto">{title}</h4>
-                    <button onclick="copy(event)" data-content={content}><i class="fa-solid fa-copy"></i></button>
+                    <i onclick="copy(event)" data-title={title} data-content={content} class="fa-solid fa-copy cursor-pointer hover:scale-150 transition-all duration-300 p-2"></i>
                 </div>
                 <p class="text-sm text-gray-500">{content.slice(0, 10)}...</p>
             </div>
