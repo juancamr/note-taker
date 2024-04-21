@@ -17,3 +17,18 @@ export async function createNote(note) {
 
     return data
 }
+
+export async function deleteAllNotes() {
+    const { data, error } = await supabase
+        .from('note')
+        .delete()
+        .neq("title", "test")
+
+    console.log(data, error)
+
+    if (error) {
+        throw error
+    }
+
+    return data
+}

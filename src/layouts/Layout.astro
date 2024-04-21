@@ -21,6 +21,11 @@ const { title } = Astro.props;
         <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
         <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
         <style is:global>
             .product-font {
                 font-family: "Product Sans", sans-serif;
@@ -30,11 +35,11 @@ const { title } = Astro.props;
             }
         </style>
     </head>
-    <body class="text-white">
+    <body class="bg-white dark:bg-black">
         <main class="py-12 mx-20">
-            <div class="w-full mb-4">
-                <a href="/" class="text-center text-black text-5xl font-bold product-font grape-nuts"
-                    >Notes</a
+            <div class="w-full mb-4 flex">
+                <p class="text-black dark:text-white text-5xl font-bold product-font grape-nuts mr-auto"
+                    >Notes <span class="text-gray-300 dark:text-gray-500 text-xl"><a target="_blank" href="https://github.com/juancamr">by @juancamr</a></span></p
                 >
             </div>
             <slot />

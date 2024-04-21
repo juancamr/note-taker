@@ -13,7 +13,6 @@ export const POST = async ({ request }) => {
 }
 
 export const DELETE = async () => {
-    console.log("Deleting all notes")
     await deleteAllNotes()
     return new Response(JSON.stringify({}), {
         status: 200
