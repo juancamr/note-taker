@@ -8,4 +8,4 @@ export async function encrypt(message) {
     return hashHex
 }
 
-export const password = "a576c6a4ab598305992e69351780a6f108f7a844377bf84b6812bcccd6d47f28"
+export const originalPassword = "a576c6a4ab598305992e69351780a6f108f7a844377bf84b6812bcccd6d47f28"

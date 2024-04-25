@@ -1,0 +1,20 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hash from "./_hash.jsx";
+---
+
+<Layout title="Hasher">
+    <div class="w-full mb-4 flex fira-font">
+        <p
+            class="text-black dark:text-white text-4xl font-bold mr-auto"
+        >
+            H4SH3R <span class="text-gray-300 dark:text-gray-500 text-lg"
+                ><a target="_blank" href="https://github.com/juancamr"
+                    >by @juancamr</a
+                ></span>
+        </p>
+    </div>
+    <main class="mt-28 flex items-center justify-center fira-font">
+        <Hash client:load />
+    </main>
+</Layout>

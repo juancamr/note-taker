@@ -19,7 +19,9 @@ const { title } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
         <meta charset="UTF-8" />
+
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -33,15 +35,13 @@ const { title } = Astro.props;
             .grape-nuts {
                 font-family: "Grape Nuts", cursive;
             }
+            .fira-font {
+                font-family: "Fira Code", monospace;
+            }
         </style>
     </head>
     <body class="bg-white dark:bg-black">
         <main class="py-12 mx-20">
-            <div class="w-full mb-4 flex">
-                <p class="text-black dark:text-white text-5xl font-bold product-font grape-nuts mr-auto"
-                    >Notes <span class="text-gray-300 dark:text-gray-500 text-xl"><a target="_blank" href="https://github.com/juancamr">by @juancamr</a></span></p
-                >
-            </div>
             <slot />
         </main>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
