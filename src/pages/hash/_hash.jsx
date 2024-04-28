@@ -30,6 +30,11 @@ export default function Hash() {
                     style: { background: "#1F2937", borderRadius: "1rem" },
                 }).showToast();
             }
+            if (event.ctrlKey && event.key === "u") {
+                event.preventDefault()
+                input.value = ""
+                setHash(emptyMessage)
+            }
         })
     }, [])
 
