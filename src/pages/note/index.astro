@@ -41,10 +41,8 @@ const notes = await getNotes();
     });
 </script>
 
-<script is:inline>
-    async function copy(event) {
-        const content = event.target.getAttribute("data-content");
-        const title = event.target.getAttribute("data-title");
+<script is:inline define:vars={{ notes }}>
+    async function copyAction(content, title) {
         await navigator.clipboard.writeText(content);
         Toastify({
             text: `"${title}" copied!`,
@@ -53,6 +51,22 @@ const notes = await getNotes();
             position: "left",
             style: { background: "#1F2937", borderRadius: "1rem" },
         }).showToast();
+    }
+
+    notes.forEach((note, index) => {
+        const currentIndex = index + 1;
+        document.addEventListener("keydown", async function (event) {
+            if (event.key === `${currentIndex}`) {
+                const { title, content } = note;
+                copyAction(content, title);
+            }
+        });
+    });
+
+    async function copy(event) {
+        const content = event.target.getAttribute("data-content");
+        const title = event.target.getAttribute("data-title");
+        copyAction(content, title);
     }
 </script>
 
@@ -64,7 +78,8 @@ const notes = await getNotes();
             Notes <span class="text-gray-300 dark:text-gray-500 text-xl"
                 ><a target="_blank" href="https://github.com/juancamr"
                     >by @juancamr</a
-                ></span>
+                ></span
+            >
         </p>
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6 mt-10">
@@ -92,9 +107,14 @@ const notes = await getNotes();
                                 class="fa-solid fa-copy cursor-pointer p-2"
                             />
                         </div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            {content.slice(0, 10)}...
-                        </p>
+                        <div class="flex items-start">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mr-auto">
+                                {content.slice(0, 10)}...
+                            </p>
+                            <p class="p-2 text-gray-500 dark:text-gray-400">
+                                {index + 1}
+                            </p>
+                        </div>
                     </div>
                 ))
             )
