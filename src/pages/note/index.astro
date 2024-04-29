@@ -5,69 +5,69 @@ const notes = await getNotes();
 ---
 
 <script>
-    document.addEventListener("keydown", async function (event) {
-        if (event.key === "a") {
-            const content = prompt("Enter the content");
-            if (content == null) return;
-            const title = prompt("Enter the title");
-            if (title == null) return;
-            fetch("/api/note/", {
-                method: "post",
-                body: JSON.stringify({ title, content }),
-            })
-                .then((res) => res.json())
-                .then(() => {
+document.addEventListener("keydown", async function (event) {
+    if (event.key === "a") {
+        const content = prompt("Enter the content");
+        if (content == null) return;
+        const title = prompt("Enter the title");
+        if (title == null) return;
+        fetch("/api/note/", {
+            method: "post",
+            body: JSON.stringify({ title, content }),
+        })
+            .then((res) => res.json())
+            .then(() => {
+                location.reload();
+            });
+    }
+    if (event.ctrlKey && event.key === "d") {
+        const password = prompt(
+            "You are trying to delete all notes. Enter the password to continue",
+        );
+        fetch("/api/note/", {
+            method: "delete",
+            body: JSON.stringify({ password }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.success) {
+                    alert("All notes deleted successfully");
                     location.reload();
-                });
-        }
-        if (event.ctrlKey && event.key === "d") {
-            const password = prompt(
-                "You are trying to delete all notes. Enter the password to continue",
-            );
-            fetch("/api/note/", {
-                method: "delete",
-                body: JSON.stringify({ password }),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("All notes deleted successfully");
-                        location.reload();
-                    } else {
-                        alert("Password is incorrect");
-                    }
-                });
-        }
-    });
+                } else {
+                    alert("Password is incorrect");
+                }
+            });
+    }
+});
 </script>
 
 <script is:inline define:vars={{ notes }}>
-    async function copyAction(content, title) {
-        await navigator.clipboard.writeText(content);
-        Toastify({
-            text: `"${title}" copied!`,
-            duration: 3000,
-            gravity: "bottom",
-            position: "left",
-            style: { background: "#1F2937", borderRadius: "1rem" },
-        }).showToast();
-    }
+async function copyAction(content, title) {
+    await navigator.clipboard.writeText(content);
+    Toastify({
+        text: `"${title}" copied!`,
+        duration: 3000,
+        gravity: "bottom",
+        position: "left",
+        style: { background: "#1F2937", borderRadius: "1rem" },
+    }).showToast();
+}
 
-    notes.forEach((note, index) => {
-        const currentIndex = index + 1;
-        document.addEventListener("keydown", async function (event) {
-            if (event.key === `${currentIndex}`) {
-                const { title, content } = note;
-                copyAction(content, title);
-            }
-        });
+notes.forEach((note, index) => {
+    const currentIndex = index + 1;
+    document.addEventListener("keydown", async function (event) {
+        if (event.key === `${currentIndex}`) {
+            const { title, content } = note;
+            copyAction(content, title);
+        }
     });
+});
 
-    async function copy(event) {
-        const content = event.target.getAttribute("data-content");
-        const title = event.target.getAttribute("data-title");
-        copyAction(content, title);
-    }
+async function copy(event) {
+    const content = event.target.getAttribute("data-content");
+    const title = event.target.getAttribute("data-title");
+    copyAction(content, title);
+}
 </script>
 
 <Layout title="Note taker">
@@ -76,27 +76,27 @@ const notes = await getNotes();
             class="text-black dark:text-white text-5xl font-bold grape-nuts mr-auto"
         >
             Notes <span class="text-gray-300 dark:text-gray-500 text-xl"
-                ><a target="_blank" href="https://github.com/juancamr"
-                    >by @juancamr</a
+            ><a target="_blank" href="https://github.com/juancamr"
+                >by @juancamr</a
                 ></span
             >
         </p>
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6 mt-10">
         {
-            notes.length === 0 ? (
-                <div class="text-center col-span-full py-20">
-                    <h1 class="text-2xl text-black dark:text-white font-bold grape-nuts">
-                        There is not notes.
-                    </h1>
-                </div>
-            ) : (
+        notes.length === 0 ? (
+            <div class="text-center col-span-full py-20">
+                <h1 class="text-2xl text-black dark:text-white font-bold grape-nuts">
+                    There is not notes.
+                </h1>
+            </div>
+        ) : (
                 notes.map(({ title, content }, index) => (
                     <div
                         id={`${index}`}
                         class="product-font bg-white dark:bg-gray-800 p-4 text-black
-                    dark:text-white rounded-xl transition duration-300 border
-                    border-gray-100 dark:border-gray-800 shadow-lg"
+                        dark:text-white rounded-xl transition duration-300 border
+                        border-gray-100 dark:border-gray-800 shadow-lg"
                     >
                         <div class="flex mb-2 items-start">
                             <h4 class="font-bold text-xl mr-auto">{title}</h4>

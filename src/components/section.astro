@@ -1,0 +1,17 @@
+---
+const { title, link, description, idx } = Astro.props
+---
+
+<a href={link} class="rounded-xl border border-gray-200 dark:border-gray-800 px-6 py-4 text-white">
+    <h2 class="text-black dark:text-white text-2xl font-bold mr-auto mb-2">
+        {title}
+    </h2>
+    <div class="flex">
+        <p class="text-sm text-gray-500 dark:text-gray-400 mr-auto">
+            {description}
+        </p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 ml-2">
+            {idx}
+        </p>
+    </div>
+</a>

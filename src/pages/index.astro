@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Section from "../components/section.astro"
+
+const sections = [
+    {
+        name: "Notes",
+        link: "/note",
+        description: "Personal notes"
+    },
+    {
+        name: "Hasher",
+        link: "/hash",
+        description: "Encrypt your password"
+    }
+]
+---
+
+<script define:vars={{ sections }} is:inline>
+sections.forEach((section, index) => {
+    const currentIndex = index + 1;
+    document.addEventListener("keydown", async function (event) {
+        if (event.key === `${currentIndex}`) {
+            location.replace(section.link)
+        }
+    });
+});
+</script>
+
+<Layout title="main">
+    <div class="h-full">
+        <div class="w-full mb-4 flex fira-font h-[10%]">
+            <p
+                class="text-black dark:text-white text-4xl font-bold mr-auto"
+            >
+                juancamr <span class="text-gray-300 dark:text-gray-500 text-lg"
+                >personal site</span>
+            </p>
+        </div>
+        <div class="h-[90%] flex items-center justify-center dark:text-white">
+            <div class="grid grid-cols-2 gap-4">
+                {sections.map((section, idx) => (
+                    <Section title={section.name}link={section.link} description={section.description} idx={idx + 1}/>
+                ))}
+            </div>
+        </div>
+    </div>
+
+</Layout>
+
+

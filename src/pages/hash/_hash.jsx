@@ -3,6 +3,7 @@ import { encrypt } from "../../utils/stringUtils"
 
 export default function Hash() {
     const [hash, setHash] = useState("")
+    const [isHide, setIsHide] = useState(true)
     const emptyMessage = "HACK YOUR PASSWORD"
 
     async function handleChange(event) {
@@ -35,6 +36,10 @@ export default function Hash() {
                 input.value = ""
                 setHash(emptyMessage)
             }
+            if (event.ctrlKey && event.key === "s") {
+                event.preventDefault()
+                setIsHide((prev) => !prev)
+            }
         })
     }, [])
 
@@ -43,9 +48,9 @@ export default function Hash() {
             <div className="w-full flex justify-center">
                 <input className="rounded px-4 py-2 bg-slate-100
                     dark:bg-gray-800/50 dark:text-white border-none outline-none
-                    text-center" type="password" id="hash-input" onChange={handleChange} />
+                    text-center" type={isHide ? "password" : "text"}id="hash-input" onChange={handleChange} />
             </div>
-            <p class="mt-8 text-green-700 dark:text-green-500 font-bold text-center fira-font">{hash.length === 0 ? emptyMessage : hash}</p>
+            <p class="mt-8 text-green-700 dark:text-green-500 font-bold text-center fira-font font-bold">{hash.length === 0 ? emptyMessage : hash}</p>
         </div>
     )
 }

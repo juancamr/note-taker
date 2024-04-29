@@ -41,9 +41,17 @@ const { title } = Astro.props;
         </style>
     </head>
     <body class="bg-white dark:bg-black">
-        <main class="py-12 mx-20">
+        <main class="py-12 mx-20 h-screen">
             <slot />
         </main>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script is:inline>
+        document.addEventListener("keydown", function(event) {
+            if (event.ctrlKey && event.key == "h") {
+                event.preventDefault()
+                location.replace("/")
+            }
+        })
+        </script>
     </body>
 </html>
